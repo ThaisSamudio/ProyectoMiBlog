@@ -1,0 +1,63 @@
+/* Cambiar el color del navbar a azul gris */
+.navbar {
+    background-color: #a72626 !important;  /* Azul gris */
+}
+
+/* Cambiar el color del texto del navbar a blanco */
+.navbar a.navbar-brand, .navbar a.nav-link {
+    color: rgb(201, 39, 39) !important;
+}
+
+/* Cambiar el color del texto del navbar cuando el mouse se posiciona encima */
+.navbar a.nav-link:hover {
+    color: #1570ca !important;  /* Un blanco más claro */
+}
+
+/* Estilo para los botones con animación */
+.nav-item a.nav-link {
+    position: relative;
+    padding: 10px;
+    color: rgb(180, 17, 17) !important;
+    text-transform: uppercase;
+    font-size: 14px;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Animación al pasar el mouse por encima */
+.nav-item a.nav-link::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(109, 40, 40);
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-item a.nav-link:hover::before {
+    visibility: visible;
+    width: 100%;
+}
+
+/* Animación al pasar el mouse */
+.nav-item a.nav-link:hover {
+    color: #d40bca !important;  /* Blanco claro */
+}
+
+/* Cambiar el estilo del footer */
+.footer {
+    background-color: #000000 !important;  /* Mantener color oscuro */
+    color: rgb(42, 21, 147) !important;
+}
+
+.footer p {
+    margin: 0;
+    padding: 10px 0;
+}
+
+/* Añadir espaciado para evitar el overlap con el contenido */
+.container {
+    margin-bottom: 50px;  /* Aumenta el margen inferior */
+}

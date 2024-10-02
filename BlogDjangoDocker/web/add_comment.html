@@ -1,0 +1,26 @@
+{% extends "principal.html" %}
+
+{% block title %}Comentar en {{ post.title }}{% endblock %}
+
+{% block content %}
+    <h2>Comentar en: {{ post.title }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Comentar</button>
+    </form>
+
+    <!-- Mostrar comentarios existentes debajo -->
+    <h3>Comentarios</h3>
+    <ul class="list-group mt-4">
+        {% for comment in post.comments.all %}
+            <li class="list-group-item">
+                <strong>{{ comment.name }}</strong> dijo:
+                <p>{{ comment.body }}</p>
+                <small>Publicado el {{ comment.created_at|date:"d M Y H:i" }}</small>
+            </li>
+        {% empty %}
+            <p>No hay comentarios aún.</p>
+        {% endfor %}
+    </ul>
+{% endblock %}
