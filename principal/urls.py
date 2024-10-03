@@ -9,5 +9,6 @@ urlpatterns = [
    path('post/new/', PostCreateView.as_view(), name='post_create'), #Creacion de nueva entrada
    path('post/list', PostListView.as_view(), name='post_list'),  # URL para ver todas las entradas
    path('post/<int:post_id>/comment/', AddCommentView.as_view(), name='add_comment'),  # URL para agregar comentarios
-   
+   path('post/<int:post_id>/delete/', views.post_delete, name='post_delete'),
+    path('comment/delete/<int:comment_id>/', views.comment_delete, name='comment_delete')
 ]
