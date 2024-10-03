@@ -7,6 +7,9 @@ from .models import Post
 from .forms import PostForm, CommentForm
 from django.views.generic import ListView
 from django.views import View
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
  #vistas para listar, crear, actualizar y ver publicaciones, así como para agregar comentarios.
@@ -71,3 +74,26 @@ def post_list(request):
 
 
 
+def post_delete(request, post_id):
+    # Obtener el post a eliminar
+    post = get_object_or_404(Post, id=post_id)
+    
+    # Eliminar el post y todos sus comentarios relacionados
+    post.delete()
+    
+    # Mensaje de confirmación
+    messages.success(request, "La entrada y sus comentarios han sido eliminados.")
+    
+    # Redireccionar a la lista de entradas después de la eliminación
+    return redirect('post_list')
+
+
+# Vista para eliminar un comentario
+def comment_delete(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    comment.delete()
+    
+    # Añadir un mensaje de éxito al usuario
+    messages.success(request, 'El comentario fue eliminado correctamente.')
+
+    return redirect('post_list')
