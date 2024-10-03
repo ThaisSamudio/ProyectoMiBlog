@@ -23,10 +23,14 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'post_list' %}">Inicio</a>
+                    <a class="nav-link" href="{% url 'post_list' %}">
+                     <i class="fas fa-home"></i> <!-- INICIO -->
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'post_create' %}">Crear nueva entrada</a>
+                    <a class="nav-link" href="{% url 'post_create' %}">
+                        <i class="fas fa-file-medical"></i> Crear nueva entrada<!-- Ícono añadido -->
+                    </a>
                 </li>
             </ul>
         </div>
@@ -49,4 +53,3 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
