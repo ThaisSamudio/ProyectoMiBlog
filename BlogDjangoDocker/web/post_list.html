@@ -3,30 +3,25 @@
 {% block title %}Todas las entradas{% endblock %}
 
 {% block content %}
-    <h2>Entradas del blog</h2>
+    <h2>Entradas del Blog</h2>
 
     {% if posts %}
         <div class="list-group">
             {% for post in posts %}
-                <div class="list-group-item">
+                <div class="list-group-item" style="position: relative; padding-top: 40px;">
+                    <!-- Botón de eliminación más grande en la parte superior derecha -->
+                    <form method="POST" action="{% url 'post_delete' post.id %}" onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta entrada y sus comentarios?');" style="position: absolute; top: 10px; right: 10px;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-lg" aria-label="Eliminar entrada" style="padding: 8px 12px; font-size: 1.2rem;">
+                            <i class="fas fa-trash-alt" style="font-size: 1.5rem;"></i> <!-- Ícono de basura más grande -->
+                        </button>
+                    </form>
+
                     <h5>{{ post.title }}</h5>
                     <p>{{ post.content|truncatewords:20 }}</p>  <!-- Vista previa del contenido -->
                     <small>Escrito por {{ post.author }} el {{ post.created_at|date:"d M Y" }}</small>
 
                     <!-- Sección de comentarios -->
-                    <div class="mt-3">
-                        <!-- Enlace que actúa como un botón para enviar el comentario -->
-                        <a href="#" class="btn btn-link btn-sm" onclick="document.getElementById('commentForm{{ post.id }}').submit();">
-                            Comentar en esta entrada
-                        </a>
-
-                        <form method="POST" action="{% url 'add_comment' post.id %}" id="commentForm{{ post.id }}">
-                            {% csrf_token %}
-                            {{ comment_form.as_p }}
-                        </form>
-                    </div>
-
-                    <!-- Mostrar comentarios de la entrada con scroll -->
                     <div class="mt-3">
                         <h6>Comentarios:</h6>
                         <div class="comment-section" style="max-height: 200px; overflow-y: auto;">  <!-- Sección con scroll -->
@@ -37,6 +32,14 @@
                                             <h6 class="card-title">{{ comment.name }}</h6>
                                             <p class="card-text">{{ comment.body }}</p>
                                             <small class="text-muted">{{ comment.created_at|date:"d M Y H:i" }}</small>
+                                            
+                                            <!-- Botón de eliminación con ícono de basura para comentarios -->
+                                            <form method="POST" action="{% url 'comment_delete' comment.id %}" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este comentario?');">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger btn-sm float-right" aria-label="Eliminar comentario" style="padding: 2px 5px; font-size: 0.8rem;">
+                                                    <i class="fas fa-trash-alt" style="font-size: 0.9rem;"></i> <!-- Ícono de basura más pequeño -->
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -44,6 +47,17 @@
                                 <p>No hay comentarios aún.</p>
                             {% endif %}
                         </div>
+                    </div>
+
+                    <!-- Sección para agregar comentarios -->
+                    <div class="mt-3">
+                        <a href="#" class="btn btn-link btn-sm" onclick="document.getElementById('commentForm{{ post.id }}').submit();">
+                            Comentar en esta entrada
+                        </a>
+                        <form method="POST" action="{% url 'add_comment' post.id %}" id="commentForm{{ post.id }}">
+                            {% csrf_token %}
+                            {{ comment_form.as_p }}
+                        </form>
                     </div>
                 </div>
             {% endfor %}
